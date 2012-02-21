@@ -89,10 +89,16 @@
         return false;
       }
       $("li", $tpDiv).removeClass(selectedClass);
-
+      
       // Position
       var elmOffset = $(elm).offset();
-      $tpDiv.css({'top':elmOffset.top + elm.offsetHeight, 'left':elmOffset.left});
+      
+      var top = elmOffset.top;
+      if($tpDiv.css('position') == 'fixed') {
+        top = elmOffset.top - jQuery(window).scrollTop();
+      } 
+      
+      $tpDiv.css({'top':top + elm.offsetHeight, 'left':elmOffset.left});
 
       // Show picker. This has to be done before scrollTop is set since that
       // can't be done on hidden elements.
